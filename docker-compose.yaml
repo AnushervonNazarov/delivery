@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  database:
+    image: postgres:latest
+    container_name: database
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=q123
+      - POSTGRES_DB=postgres
+    restart: always
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    networks:
+      - backend
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 3s
+      timeout: 3s
+      retries: 3
+
+  blogging_platform:
+    container_name: blogging_platform
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports: 
+      - "8081:8081"
+    volumes:
+      - blogging_platform:/usr/src/blogging_platform/
+    depends_on:
+      database:
+        condition: service_healthy
+    networks:
+      - backend
+
+volumes:
+  itsware:
+  postgres:
+
+networks:
+  backend:
+    driver: bridge
