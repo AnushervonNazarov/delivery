@@ -1,7 +1,7 @@
 package controllers
 
 import (
-	"blogging_platform/errs"
+	"delivery/errs"
 	"errors"
 	"net/http"
 

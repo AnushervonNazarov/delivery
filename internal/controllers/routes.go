@@ -1,9 +1,9 @@
 package controllers
 
 import (
-	"blogging_platform/configs"
-	service "blogging_platform/internal/services"
-	"blogging_platform/utils"
+	"delivery/configs"
+	service "delivery/internal/services"
+	"delivery/utils"
 	"net/http"
 
 	"github.com/gin-gonic/gin"

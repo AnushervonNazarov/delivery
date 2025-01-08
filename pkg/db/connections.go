@@ -1,7 +1,7 @@
 package db
 
 import (
-	"blogging_platform/configs"
+	"delivery/configs"
 	"fmt"
 	"os"
 

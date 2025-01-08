@@ -1,9 +1,9 @@
 package repository
 
 import (
-	"blogging_platform/internal/models"
-	"blogging_platform/logger"
-	"blogging_platform/pkg/db"
+	"delivery/internal/models"
+	"delivery/logger"
+	"delivery/pkg/db"
 )
 
 func GetAllUsers() (users []models.User, err error) {

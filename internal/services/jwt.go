@@ -1,8 +1,8 @@
 package service
 
 import (
-	"blogging_platform/configs"
-	"blogging_platform/logger"
+	"delivery/configs"
+	"delivery/logger"
 	"fmt"
 	"os"
 

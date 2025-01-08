@@ -1,10 +1,10 @@
 package controllers
 
 import (
-	"blogging_platform/errs"
-	"blogging_platform/internal/models"
-	service "blogging_platform/internal/services"
-	"blogging_platform/logger"
+	"delivery/errs"
+	"delivery/internal/models"
+	service "delivery/internal/services"
+	"delivery/logger"
 	"net/http"
 
 	"strconv"

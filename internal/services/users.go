@@ -1,10 +1,10 @@
 package service
 
 import (
-	"blogging_platform/errs"
-	"blogging_platform/internal/models"
-	repository "blogging_platform/internal/repositories"
-	"blogging_platform/utils"
+	"delivery/errs"
+	"delivery/internal/models"
+	repository "delivery/internal/repositories"
+	"delivery/utils"
 	"errors"
 	"fmt"
 )

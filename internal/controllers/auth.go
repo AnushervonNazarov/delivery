@@ -1,8 +1,8 @@
 package controllers
 
 import (
-	"blogging_platform/internal/models"
-	service "blogging_platform/internal/services"
+	"delivery/internal/models"
+	service "delivery/internal/services"
 	"net/http"
 
 	"github.com/gin-gonic/gin"

@@ -1,7 +1,7 @@
 package configs
 
 import (
-	"blogging_platform/internal/models"
+	"delivery/internal/models"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -13,7 +13,7 @@ var AppSettings models.Configs
 
 func ReadSettings() error {
 	fmt.Println("Starting reading settings file")
-	configFile, err := os.Open("/home/hp/go/src/blogging_platform/configs/configs.json")
+	configFile, err := os.Open("/home/hp/go/src/delivery/configs/configs.json")
 	if err != nil {
 		return errors.New(fmt.Sprintf("Couldn't open config file. Error is: %s", err.Error()))
 	}

@@ -1,6 +1,6 @@
 package db
 
-import "blogging_platform/internal/models"
+import "delivery/internal/models"
 
 func Migrate() error {
 	err := dbConn.AutoMigrate(

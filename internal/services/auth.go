@@ -1,12 +1,12 @@
 package service
 
 import (
-	"blogging_platform/errs"
-	"blogging_platform/internal/models"
-	repository "blogging_platform/internal/repositories"
-	"blogging_platform/pkg/db"
-	"blogging_platform/utils"
 	"context"
+	"delivery/errs"
+	"delivery/internal/models"
+	repository "delivery/internal/repositories"
+	"delivery/pkg/db"
+	"delivery/utils"
 	"encoding/json"
 	"errors"
 	"net/http"

@@ -1,7 +1,7 @@
 package repository
 
 import (
-	"blogging_platform/errs"
+	"delivery/errs"
 	"errors"
 
 	"gorm.io/gorm"

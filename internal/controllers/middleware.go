@@ -1,7 +1,7 @@
 package controllers
 
 import (
-	service "blogging_platform/internal/services"
+	service "delivery/internal/services"
 	"fmt"
 	"net/http"
 	"strings"

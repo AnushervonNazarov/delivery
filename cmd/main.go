@@ -1,12 +1,12 @@
 package main
 
 import (
-	"blogging_platform/configs"
-	"blogging_platform/internal/controllers"
-	"blogging_platform/logger"
-	"blogging_platform/pkg/db"
-	"blogging_platform/server"
 	"context"
+	"delivery/configs"
+	"delivery/internal/controllers"
+	"delivery/logger"
+	"delivery/pkg/db"
+	"delivery/server"
 	"fmt"
 	"log"
 	"os"
@@ -20,7 +20,7 @@ import (
 
 func main() {
 
-	if err := godotenv.Load("/home/hp/go/src/blogging_platform/.env"); err != nil {
+	if err := godotenv.Load("/home/hp/go/src/delivery/.env"); err != nil {
 		log.Fatalf("Ошибка загрузки .env файла: %s", err)
 	}
 
