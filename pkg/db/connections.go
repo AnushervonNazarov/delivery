@@ -34,6 +34,7 @@ func ConnectToDB() error {
 	fmt.Println("Connected to database")
 
 	dbConn = db
+
 	return nil
 
 	// connStr := "user=postgres password=q123 dbname=postgres host=localhost port=5433 sslmode=disable"

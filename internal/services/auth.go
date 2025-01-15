@@ -9,11 +9,14 @@ import (
 	"delivery/utils"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"net/http"
+	"os"
 
 	"github.com/gin-gonic/gin"
 	"golang.org/x/crypto/bcrypt"
 	"golang.org/x/oauth2"
+	"googlemaps.github.io/maps"
 	"gorm.io/gorm"
 )
 
@@ -118,4 +121,72 @@ func GoogleCallback(c *gin.Context) {
 			"accesstoken": accessToken,
 		},
 	})
+}
+
+// GetDirections fetches directions from Google Maps and returns the route details
+func GetDirections(origin, destination string) (map[string]interface{}, error) {
+	// Initialize the Google Maps client
+	client, err := maps.NewClient(maps.WithAPIKey(os.Getenv("API_KEY")))
+	if err != nil {
+		return nil, fmt.Errorf("failed to create maps client: %v", err)
+	}
+
+	// Make the directions request
+	req := &maps.DirectionsRequest{
+		Origin:      origin,
+		Destination: destination,
+		Mode:        maps.TravelModeDriving,
+	}
+
+	// Request directions
+	resp, _, err := client.Directions(context.Background(), req)
+	if err != nil {
+		return nil, fmt.Errorf("failed to get directions: %v", err)
+	}
+
+	// Structure the detailed response
+	if len(resp) > 0 {
+		route := resp[0]
+		steps := []map[string]interface{}{}
+
+		// Iterate through steps to create a clearer output
+		for _, step := range route.Legs[0].Steps {
+			// Convert the duration to seconds
+			durationInSeconds := int(step.Duration.Seconds())
+
+			// Check for short durations (less than 1 minute)
+			if durationInSeconds < 60 {
+				steps = append(steps, map[string]interface{}{
+					"instruction": step.HTMLInstructions,
+					"distance":    step.Distance.HumanReadable,
+					"duration":    fmt.Sprintf("%d seconds", durationInSeconds),
+				})
+			} else {
+				// Calculate hours and minutes
+				hours := durationInSeconds / 3600
+				minutes := (durationInSeconds % 3600) / 60
+
+				steps = append(steps, map[string]interface{}{
+					"instruction": step.HTMLInstructions,
+					"distance":    step.Distance.HumanReadable,
+					"duration":    fmt.Sprintf("%02d hours %02d minutes", hours, minutes),
+				})
+			}
+		}
+
+		// Calculate total duration for the entire route
+		totalDurationInSeconds := int(route.Legs[0].Duration.Seconds())
+		totalHours := totalDurationInSeconds / 3600
+		totalMinutes := (totalDurationInSeconds % 3600) / 60
+
+		// Return a structured and clear response
+		return map[string]interface{}{
+			"summary":        route.Summary,
+			"total_distance": route.Legs[0].Distance.HumanReadable,
+			"total_duration": fmt.Sprintf("%02d hours %02d minutes", totalHours, totalMinutes),
+			"steps":          steps,
+		}, nil
+	}
+
+	return nil, fmt.Errorf("no routes found")
 }

@@ -7,6 +7,7 @@ import (
 	"strings"
 
 	"github.com/gin-gonic/gin"
+	"gorm.io/gorm"
 )
 
 const (
@@ -52,4 +53,12 @@ func checkUserAuthentication(c *gin.Context) {
 	c.Set(userIDCtx, claims.UserID)
 	c.Set(userRoleCtx, claims.Role)
 	c.Next()
+}
+
+func DatabaseMiddleware(db *gorm.DB) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		// Add the DB connection to the context
+		c.Set("db", db)
+		c.Next()
+	}
 }

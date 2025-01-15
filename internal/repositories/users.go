@@ -4,6 +4,9 @@ import (
 	"delivery/internal/models"
 	"delivery/logger"
 	"delivery/pkg/db"
+	"errors"
+
+	"gorm.io/gorm"
 )
 
 func GetAllUsers() (users []models.User, err error) {
@@ -29,7 +32,10 @@ func GetUserByID(id uint) (user models.User, err error) {
 func GetUserByUsername(username string) (user models.User, err error) {
 	err = db.GetDBConn().Where("username = ?", username).First(&user).Error
 	if err != nil {
-		logger.Error.Println("[repository.GetUserByUsername] cannot get user by username. Error is:", err.Error())
+		// Log only if the error is unexpected
+		if !errors.Is(err, gorm.ErrRecordNotFound) {
+			logger.Error.Println("[repository.GetUserByUsername] cannot get user by username. Error is:", err.Error())
+		}
 		return user, translateError(err)
 	}
 
