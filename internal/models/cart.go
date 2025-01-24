@@ -3,7 +3,7 @@ package models
 type Cart struct {
 	ID       uint `gorm:"primaryKey" json:"id"`
 	UserID   uint `gorm:"not null" json:"user_id"`
-	ItemID   uint `gorm:"not null" json:"item_id"` // Ensure correct JSON tag here
+	ItemID   uint `gorm:"not null" json:"item_id"`
 	Quantity int  `gorm:"not null" json:"quantity"`
 
 	// Relationships

@@ -46,7 +46,7 @@ func (r *orderRepository) SaveOrder(order models.Order, items []models.Cart) (in
 			OrderID:  order.ID,
 			ItemID:   item.ItemID,
 			Quantity: item.Quantity,
-			Price:    float64(item.Quantity) * fetchedItem.Price, // Use fetched price
+			Price:    float64(item.Quantity) * fetchedItem.Price,
 		}
 
 		if err := tx.Create(&orderItem).Error; err != nil {

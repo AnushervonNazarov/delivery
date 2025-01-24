@@ -9,7 +9,7 @@ import (
 	"gopkg.in/natefinch/lumberjack.v2"
 )
 
-// SetLogger Установка Logger-а
+// SetLogger Installing Logger
 var (
 	Info  *log.Logger
 	Error *log.Logger

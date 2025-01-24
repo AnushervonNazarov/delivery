@@ -36,18 +36,6 @@ func ConnectToDB() error {
 	dbConn = db
 
 	return nil
-
-	// connStr := "user=postgres password=q123 dbname=postgres host=localhost port=5433 sslmode=disable"
-
-	// db, err := gorm.Open(postgres.Open(connStr), &gorm.Config{})
-	// if err != nil {
-	// 	return err
-	// }
-
-	// fmt.Println("Connected to database")
-
-	// dbConn = db
-	// return nil
 }
 
 func CloseDBConn() error {

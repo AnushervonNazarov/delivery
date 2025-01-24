@@ -11,7 +11,7 @@ import (
 	"github.com/dgrijalva/jwt-go"
 )
 
-// CustomClaims определяет кастомные поля токена
+// CustomClaims defines custom token fields
 type CustomClaims struct {
 	UserID   uint   `json:"user_id"`
 	Role     string `json:"role"`
@@ -20,7 +20,7 @@ type CustomClaims struct {
 	jwt.StandardClaims
 }
 
-// GenerateToken генерирует JWT токен с кастомными полями
+// GenerateToken generates a JWT token with custom fields
 func GenerateToken(userID uint, username, role, email string) (string, error) {
 	claims := CustomClaims{
 		UserID:   userID,
@@ -37,10 +37,10 @@ func GenerateToken(userID uint, username, role, email string) (string, error) {
 	return token.SignedString([]byte(os.Getenv("JWT_SECRET_KEY")))
 }
 
-// ParseToken парсит JWT токен и возвращает кастомные поля
+// ParseToken parses JWT token and returns custom fields
 func ParseToken(tokenString string) (*CustomClaims, error) {
 	token, err := jwt.ParseWithClaims(tokenString, &CustomClaims{}, func(token *jwt.Token) (interface{}, error) {
-		// Проверяем метод подписи токена
+		// Checking the token signature method
 		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
 			return nil, fmt.Errorf("unexpected signing method: %v", token.Header["alg"])
 		}
